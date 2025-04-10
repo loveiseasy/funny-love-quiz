@@ -40,7 +40,7 @@
 <body>
   <h1>你何時會脫單？</h1>
 
-  <form action="https://formspree.io/f/myzeldjj" method="POST">
+  <form action="[https://formspree.io/f/myzeldjj](https://formspree.io/f/myzeldjj)" method="POST">
     <div class="form-group">
       <label>暱稱：<input type="text" name="nickname" required /></label><br/>
       <label>手機：<input type="tel" name="phone" required /></label><br/>
