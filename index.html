@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>何時脫單測驗</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fff6e5;
+      color: #333;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #d9480f;
+    }
+    .question, .form-group {
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #ff9248;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #ffe8cc;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>你何時會脫單？</h1>
+  <div class="form-group">
+    <label>暱稱：<input type="text" id="nickname" required /></label><br/>
+    <label>手機：<input type="tel" id="phone" required /></label><br/>
+    <label>出生年月日：<input type="date" id="birthday" required /></label><br/>
+    <label>居住地區：
+      <select id="region">
+        <option>台北</option>
+        <option>新北</option>
+        <option>桃園</option>
+        <option>台中</option>
+        <option>台南</option>
+        <option>高雄</option>
+        <option>其他</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="question">
+    <p>1. 假日最常出現的狀態？</p>
+    <label><input type="radio" name="q1" value="A" /> 宅在家、被棉被纏住</label><br/>
+    <label><input type="radio" name="q1" value="B" /> 滑手機滑到忘記吃飯</label><br/>
+    <label><input type="radio" name="q1" value="C" /> 出門曬太陽但沒人約</label><br/>
+    <label><input type="radio" name="q1" value="D" /> 狂約朋友、能動就不靜</label>
+  </div>
+
+  <div class="question">
+    <p>2. 如果你是飲料，你是哪一種？</p>
+    <label><input type="radio" name="q2" value="A" /> 無糖綠茶</label><br/>
+    <label><input type="radio" name="q2" value="B" /> 黑咖啡</label><br/>
+    <label><input type="radio" name="q2" value="C" /> 珍奶</label><br/>
+    <label><input type="radio" name="q2" value="D" /> 可樂</label>
+  </div>
+
+  <div class="question">
+    <p>3. 你對感情的期待是？</p>
+    <label><input type="radio" name="q3" value="A" /> 越快越好</label><br/>
+    <label><input type="radio" name="q3" value="B" /> 慢慢來</label><br/>
+    <label><input type="radio" name="q3" value="C" /> 我只想當快樂單身狗</label><br/>
+    <label><input type="radio" name="q3" value="D" /> 問我老闆先</label>
+  </div>
+
+  <button onclick="showResult()">看我的脫單預測</button>
+  <div id="result"></div>
+
+  <script>
+    function showResult() {
+      const nickname = document.getElementById("nickname").value;
+      const phone = document.getElementById("phone").value;
+      const birthday = document.getElementById("birthday").value;
+      const region = document.getElementById("region").value;
+
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const q3 = document.querySelector('input[name="q3"]:checked');
+
+      if (!nickname || !phone || !birthday || !q1 || !q2 || !q3) {
+        alert("請完整填寫資料與作答喔！");
+        return;
+      }
+
+      // 統計回答次數
+      const counts = { A: 0, B: 0, C: 0, D: 0 };
+      [q1, q2, q3].forEach(q => counts[q.value]++);
+
+      // 找出最多的選項
+      const max = Object.entries(counts).reduce((a, b) => (a[1] >= b[1] ? a : b))[0];
+
+      let message = "";
+      switch (max) {
+        case "A":
+          message = `🚀 ${nickname}，你快脫單啦！愛神已經準備按下發射鍵，請保持訊號暢通！（3 個月內有機會戀愛爆擊）`;
+          break;
+        case "B":
+          message = `🧊 ${nickname}，你的桃花目前被冷氣冷凍中...請半年後再來觀察是否解凍成功。`;
+          break;
+        case "C":
+          message = `🏖️ ${nickname}，你太 chill 了，愛神都不知道怎麼追上你！目前看來脫單需要宇宙干預。`;
+          break;
+        case "D":
+          message = `💀 ${nickname}，請立刻申請「脫單急救包」！你的戀愛線快被老闆壓爆了！`;
+          break;
+      }
+
+      document.getElementById("result").innerText = message;
+    }
+  </script>
+</body>
+</html>
